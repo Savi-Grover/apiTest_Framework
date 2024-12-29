@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 
 import com.github.javafaker.Faker;
 import com.github.scribejava.core.model.Response;
-import io.restassured.response.Response;
+
 
 import api.endpoints.UserEndpoints;
 import api.payload.User;
@@ -52,7 +52,57 @@ public class UserTests {
 		Assert.assertEquals(response.getStatusCode(), 200);
 	}
 	
-
+	//post testcase
+		@Test(priority=2)
+		public void testgetUser(){
+			
+			//call create method
+			io.restassured.response.Response response=UserEndpoints.readUser(this.userPayload.getUsername());
+			response.then().log().all();
+			//response.statusCode()
+			
+			//we can put all validations.
+			Assert.assertEquals(response.statusCode(), 200);
+			
+		}
+		
+		@Test(priority=3)
+		public void testUpdateUser(){
+			
+			//update some values
+			userPayload.setFirstname(faker.name().firstName());
+			userPayload.setLastname(faker.name().lastName());
+			
+			//call create method
+			io.restassured.response.Response response=UserEndpoints.updateUser(this.userPayload.getUsername(),userPayload);
+			response.then().log().all();
+			//response.statusCode()
+			
+			//we can put all validations.
+			Assert.assertEquals(response.statusCode(), 200);
+			
+			//checking data after updation
+			io.restassured.response.Response response1=UserEndpoints.createUser(userPayload);
+			response1.then().log().all();
+			
+			//or
+			Assert.assertEquals(response1.getStatusCode(),200);
+		}
+		
+		@Test(priority=4)
+		public void testDeleteUser(){
+			
+			
+			//call create method
+			io.restassured.response.Response response=UserEndpoints.deleteUser(this.userPayload.getUsername());
+			response.then().log().all();
+			//response.statusCode()
+			
+			//we can put all validations.
+			Assert.assertEquals(response.statusCode(), 200);
+			
+		}
+		
 }
 
 
