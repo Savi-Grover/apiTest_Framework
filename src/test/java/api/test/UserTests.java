@@ -1,13 +1,9 @@
 package api.test;
-
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-
 import com.github.javafaker.Faker;
 import com.github.scribejava.core.model.Response;
-
-
 import api.endpoints.UserEndpoints;
 import api.payload.User;
 
